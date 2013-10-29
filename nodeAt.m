@@ -14,10 +14,15 @@ function node = nodeAt( tree, label )
 
 node = {};
 
+%fprintf('label='); disp( label )
+%fprintf('\ttree.name=%s\n', tree.name)
+
 found = false;
 %is it a node number?
-if isa( label, 'numeric' ) && tree.num == label
-    found = true;
+if isa( label, 'numeric' ) 
+    if tree.num == label
+        found = true;
+    end
 elseif strcmpi( label, tree.name )
     found = true;
 else
