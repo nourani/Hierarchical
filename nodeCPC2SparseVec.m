@@ -18,10 +18,10 @@ end
 % get total number of nodes 
 numNodes = nodeGetNumNodes( node );
 
-% create sparce vec. NOTE: rootNode is not counted here
-sVec = zeros(numNodes-1, 1);
+% create sparce vec. NOTE: rootNode is always 1
+sVec = [1; zeros(numNodes-1, 1)];
 
-% get the node the label
+% get the node label
 nodeCurr = nodeAt( node, label );
 if strcmpi( nodeCurr.name, 'rootNode' )
     return
@@ -32,13 +32,13 @@ if verbose == true
     fprintf( '%s is @ %d\n', nodeCurr.name, nodeCurr.num );
 end
 
-sVec(nodeCurr.num) = true;
+sVec(nodeCurr.num+1) = true;
 
 while strcmpi( nodePar.name, 'rootNode' ) == 0
 
     nodeCurr = nodeAt( node, nodePar.name );
     nodePar  = nodeParent( node, nodeCurr.num );
-    sVec(nodeCurr.num) = true;
+    sVec(nodeCurr.num+1) = true;
 end
 
 
